@@ -6,7 +6,7 @@ import { Briefcase, ClipboardList, Building2, FileText, CreditCard } from 'lucid
 const actions = [
   { label: 'JOBS', icon: Briefcase, href: '/residents/jobs' },
   { label: 'AGENDA', icon: ClipboardList, href: '/government/agenda-minutes' },
-  { label: 'FACILITIES', icon: Building2, href: '/services' },
+  { label: 'FACILITIES', icon: Building2, href: '/locations' },
   { label: 'BIDS', icon: FileText, href: '/government/bids' },
   { label: 'PAY NOW', icon: CreditCard, href: '/services/pay' },
 ]

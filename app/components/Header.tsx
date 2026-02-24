@@ -6,9 +6,9 @@ import Image from 'next/image'
 import { Menu, X, Search, ChevronDown, Globe, User } from 'lucide-react'
 
 const navigation = [
-  { name: 'Discover Meridian', href: '/discover', children: [
-    { name: 'What is Meridian?', href: '/discover' },
-    { name: 'Components', href: '/discover/components' },
+  { name: 'Discover Meridian', href: '/discover-meridian', children: [
+    { name: 'What is Meridian?', href: '/discover-meridian' },
+    { name: 'Components', href: '/showcase' },
   ]},
   { name: 'Meridian Homepage', href: '/' },
   { name: 'Government', href: '/government', children: [
@@ -16,6 +16,7 @@ const navigation = [
     { name: 'Bids', href: '/government/bids' },
     { name: 'Departments', href: '/government/departments' },
     { name: 'Meet the Board', href: '/government/meet-the-board' },
+    { name: 'Waste & Recycling', href: '/government/waste-recycling' },
   ]},
   { name: 'Services', href: '/services', children: [
     { name: 'Building Permit', href: '/services/building-permit' },
