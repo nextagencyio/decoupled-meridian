@@ -8,6 +8,7 @@ function createApolloClient() {
     link: new HttpLink({
       uri: drupalUrl ? `${drupalUrl}/graphql` : '/api/graphql',
       credentials: 'same-origin',
+      fetchOptions: { cache: 'no-store' },
     }),
     cache: new InMemoryCache({
       typePolicies: {
