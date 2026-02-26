@@ -5,6 +5,9 @@ import type { LandingPage, ParagraphType } from '@/lib/types'
 import { ParagraphList } from '../components/paragraphs/ParagraphRenderer'
 import { isDemoMode, getMockPageByPath, getMockPages } from '@/lib/demo-mode'
 
+// Force dynamic rendering so content updates are reflected immediately
+export const dynamic = 'force-dynamic'
+
 interface PageProps {
   params: Promise<{ slug: string[] }>
 }
