@@ -3,12 +3,18 @@ import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
 const drupalUrl = process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
 
 function createApolloClient() {
+  const isServer = typeof window === 'undefined'
+
   return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
+    ssrMode: isServer,
     link: new HttpLink({
       uri: drupalUrl ? `${drupalUrl}/graphql` : '/api/graphql',
       credentials: 'same-origin',
-      // Let Next.js cache GraphQL responses; cleared by revalidatePath on node save
+      // On the server, tag fetch requests so revalidateTag('drupal') clears the Data Cache
+      ...(isServer && {
+        fetch: (uri: RequestInfo | URL, options?: RequestInit) =>
+          fetch(uri, { ...options, next: { tags: ['drupal'] } } as RequestInit),
+      }),
     }),
     cache: new InMemoryCache({
       typePolicies: {
