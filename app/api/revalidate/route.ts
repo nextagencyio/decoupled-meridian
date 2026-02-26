@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
     // Convert slug to path (ensure leading slash)
     const path = slug ? (slug.startsWith('/') ? slug : `/${slug}`) : '/'
 
-    // Clear the Data Cache for all Drupal GraphQL fetches
-    revalidateTag('drupal')
+    // Clear the Data Cache for all Drupal GraphQL fetches (expire immediately)
+    revalidateTag('drupal', { expire: 0 })
     // Clear the Route Cache for the specific page
     revalidatePath(path)
 
