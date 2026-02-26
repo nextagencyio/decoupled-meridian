@@ -6,23 +6,20 @@ import type { ParagraphQuote as ParagraphQuoteType, Testimonial } from '@/lib/ty
 import Badge from '../ui/Badge'
 import Card from '../ui/Card'
 
-// Convert http URLs to https
-function secureUrl(url: string): string {
-  return url.replace(/^http:\/\//, 'https://')
-}
-
 function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
+  const ratingNum = testimonial.rating ? parseInt(testimonial.rating, 10) : 0
+
   return (
     <Card variant="bordered" className="h-full flex flex-col">
       {/* Rating */}
-      {testimonial.rating && (
+      {ratingNum > 0 && (
         <div className="flex gap-1 mb-4">
           {[...Array(5)].map((_, i) => (
             <Star
               key={i}
               className={clsx(
                 'w-5 h-5',
-                i < testimonial.rating!
+                i < ratingNum
                   ? 'text-yellow-400 fill-yellow-400'
                   : 'text-gray-200'
               )}
@@ -39,31 +36,27 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 
       {/* Author */}
       <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
-        {testimonial.authorImage?.url ? (
+        {testimonial.avatar?.url ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
-            src={secureUrl(testimonial.authorImage.url)}
-            alt={testimonial.authorName}
-            width={48}
-            height={48}
-            className="rounded-full w-12 h-12 object-cover"
+            src={testimonial.avatar.url.replace(/^http:\/\//, 'https://')}
+            alt={testimonial.avatar.alt || testimonial.author}
+            className="w-12 h-12 rounded-full object-cover"
           />
         ) : (
           <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center">
             <span className="text-primary-600 font-semibold text-lg">
-              {testimonial.authorName.charAt(0)}
+              {testimonial.author?.charAt(0) || '?'}
             </span>
           </div>
         )}
         <div>
           <div className="font-semibold text-gray-900">
-            {testimonial.authorName}
+            {testimonial.author}
           </div>
-          {(testimonial.authorTitle || testimonial.authorCompany) && (
+          {testimonial.role && (
             <div className="text-sm text-gray-500">
-              {testimonial.authorTitle}
-              {testimonial.authorTitle && testimonial.authorCompany && ' at '}
-              {testimonial.authorCompany}
+              {testimonial.role}
             </div>
           )}
         </div>
@@ -75,7 +68,6 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
 export default function ParagraphQuote({
   eyebrow,
   title,
-  layout = 'grid',
   testimonials,
 }: ParagraphQuoteType) {
   return (
@@ -98,17 +90,14 @@ export default function ParagraphQuote({
         )}
 
         {/* Testimonials */}
-        {layout === 'single' && testimonials.length > 0 ? (
-          <div className="max-w-3xl mx-auto">
-            <TestimonialCard testimonial={testimonials[0]} />
-          </div>
-        ) : (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {testimonials.map((testimonial) => (
-              <TestimonialCard key={testimonial.id} testimonial={testimonial} />
-            ))}
-          </div>
-        )}
+        <div className={clsx(
+          'grid gap-6 md:gap-8',
+          testimonials.length === 1 ? 'max-w-3xl mx-auto' : 'md:grid-cols-2 lg:grid-cols-3'
+        )}>
+          {testimonials.map((testimonial) => (
+            <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+          ))}
+        </div>
       </div>
     </section>
   )

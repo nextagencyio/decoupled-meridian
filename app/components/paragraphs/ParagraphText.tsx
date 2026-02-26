@@ -8,7 +8,7 @@ import Button from '../ui/Button'
 export default function ParagraphText({
   eyebrow,
   title,
-  content,
+  body,
   alignment = 'left',
   ctaText,
   ctaUrl,
@@ -39,13 +39,15 @@ export default function ParagraphText({
           )}
 
           {/* Content */}
-          <div
-            className={clsx(
-              'prose prose-lg max-w-none',
-              isCentered && 'prose-center'
-            )}
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          {body && (
+            <div
+              className={clsx(
+                'prose prose-lg max-w-none',
+                isCentered && 'prose-center'
+              )}
+              dangerouslySetInnerHTML={{ __html: body }}
+            />
+          )}
 
           {/* CTA */}
           {ctaText && ctaUrl && (

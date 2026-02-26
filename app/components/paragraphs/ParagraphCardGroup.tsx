@@ -14,10 +14,25 @@ function DynamicIcon({ name, className }: { name: string; className?: string }) 
   return <IconComponent className={className} />
 }
 
+// Convert http URLs to https
+function secureUrl(url: string): string {
+  return url.replace(/^http:\/\//, 'https://')
+}
+
 function FeatureCard({ card }: { card: CardType }) {
   return (
-    <Card variant="bordered" className="h-full hover:border-primary-200 hover:shadow-md transition-all">
-      {card.icon && (
+    <Card variant="bordered" className="h-full hover:border-primary-200 hover:shadow-md transition-all overflow-hidden">
+      {card.image?.url && (
+        <div className="relative w-full aspect-[16/10] -mx-6 -mt-6 mb-4" style={{ width: 'calc(100% + 3rem)' }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={secureUrl(card.image.url)}
+            alt={card.image.alt || card.title}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      )}
+      {!card.image?.url && card.icon && (
         <div className="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center mb-4">
           <DynamicIcon name={card.icon} className="w-6 h-6 text-primary-600" />
         </div>

@@ -30,12 +30,12 @@ const demoData = {
     id: 'logos-1',
     title: 'Trusted by 10,000+ teams worldwide',
     logos: [
-      { id: '1', name: 'Acme Corp' },
-      { id: '2', name: 'TechFlow' },
-      { id: '3', name: 'Quantum' },
-      { id: '4', name: 'NovaSoft' },
-      { id: '5', name: 'CloudBase' },
-      { id: '6', name: 'DataStream' },
+      { id: '1', title: 'Acme Corp' },
+      { id: '2', title: 'TechFlow' },
+      { id: '3', title: 'Quantum' },
+      { id: '4', title: 'NovaSoft' },
+      { id: '5', title: 'CloudBase' },
+      { id: '6', title: 'DataStream' },
     ],
   },
   stats: {
@@ -67,9 +67,9 @@ const demoData = {
     id: 'sidebyside-1',
     eyebrow: 'How It Works',
     title: 'From idea to production in minutes',
-    content: '<p>LaunchPad streamlines your entire development workflow. Write code with our powerful components, preview changes instantly, and ship to production with confidence.</p>',
+    description: '<p>LaunchPad streamlines your entire development workflow. Write code with our powerful components, preview changes instantly, and ship to production with confidence.</p>',
     imagePosition: 'right' as const,
-    features: [
+    featureItems: [
       { id: '1', icon: 'Code', title: 'Write Code', description: 'Use our intuitive API and components to build your product quickly' },
       { id: '2', icon: 'GitBranch', title: 'Preview Changes', description: 'Every branch gets a preview deployment for easy collaboration' },
       { id: '3', icon: 'Rocket', title: 'Ship to Production', description: 'One-click deployments with automatic scaling and optimization' },
@@ -82,9 +82,9 @@ const demoData = {
     id: 'sidebyside-2',
     eyebrow: 'Integrations',
     title: 'Connect with the tools you already use',
-    content: '<p>LaunchPad integrates seamlessly with your existing tech stack. No need to change how you work - we adapt to your workflow.</p>',
+    description: '<p>LaunchPad integrates seamlessly with your existing tech stack. No need to change how you work - we adapt to your workflow.</p>',
     imagePosition: 'left' as const,
-    features: [
+    featureItems: [
       { id: '1', icon: 'Database', title: 'Database Integrations', description: 'PostgreSQL, MySQL, MongoDB, and more with automatic backups' },
       { id: '2', icon: 'Cloud', title: 'Cloud Providers', description: 'Deploy to AWS, GCP, Azure, or our managed infrastructure' },
       { id: '3', icon: 'Lock', title: 'Auth Providers', description: 'Built-in support for OAuth, SAML, and custom authentication' },
@@ -99,9 +99,9 @@ const demoData = {
     title: 'Simple, transparent pricing',
     subtitle: 'Start free and scale as you grow. No hidden fees, no surprises.',
     tiers: [
-      { id: '1', name: 'Starter', price: '$0', billingPeriod: 'forever', description: 'Perfect for side projects and learning', features: ['Up to 3 projects', '1GB storage', 'Community support', 'Basic analytics', 'SSL certificates'], isFeatured: false, ctaText: 'Get Started', ctaUrl: '#' },
-      { id: '2', name: 'Pro', price: '$29', billingPeriod: '/month', description: 'For professionals and growing teams', features: ['Unlimited projects', '50GB storage', 'Priority support', 'Advanced analytics', 'Custom domains', 'Team collaboration', 'API access'], isFeatured: true, ctaText: 'Start Free Trial', ctaUrl: '#' },
-      { id: '3', name: 'Enterprise', price: 'Custom', billingPeriod: '', description: 'For large teams with custom needs', features: ['Everything in Pro', 'Unlimited storage', '24/7 dedicated support', 'Custom integrations', 'SLA guarantee', 'SAML SSO', 'Audit logs', 'On-premise option'], isFeatured: false, ctaText: 'Contact Sales', ctaUrl: '#' },
+      { id: '1', title: 'Starter', price: '$0', description: 'Perfect for side projects and learning', features: ['Up to 3 projects', '1GB storage', 'Community support', 'Basic analytics', 'SSL certificates'], highlighted: false, ctaText: 'Get Started', ctaUrl: '#' },
+      { id: '2', title: 'Pro', price: '$29', description: 'For professionals and growing teams', features: ['Unlimited projects', '50GB storage', 'Priority support', 'Advanced analytics', 'Custom domains', 'Team collaboration', 'API access'], highlighted: true, ctaText: 'Start Free Trial', ctaUrl: '#' },
+      { id: '3', title: 'Enterprise', price: 'Custom', description: 'For large teams with custom needs', features: ['Everything in Pro', 'Unlimited storage', '24/7 dedicated support', 'Custom integrations', 'SLA guarantee', 'SAML SSO', 'Audit logs', 'On-premise option'], highlighted: false, ctaText: 'Contact Sales', ctaUrl: '#' },
     ],
   },
   quotes: {
@@ -111,9 +111,9 @@ const demoData = {
     title: 'Loved by developers worldwide',
     layout: 'grid' as const,
     testimonials: [
-      { id: '1', quote: 'LaunchPad has completely transformed how our team builds products. We shipped our last feature in half the time it usually takes.', authorName: 'Sarah Chen', authorTitle: 'CTO', authorCompany: 'TechFlow', rating: 5 },
-      { id: '2', quote: "The component library is incredible. Everything just works together seamlessly. It's like having an extra engineer on the team.", authorName: 'Marcus Johnson', authorTitle: 'Lead Developer', authorCompany: 'Quantum Labs', rating: 5 },
-      { id: '3', quote: 'We evaluated 10 different platforms before choosing LaunchPad. The developer experience and support are unmatched.', authorName: 'Emily Rodriguez', authorTitle: 'Engineering Manager', authorCompany: 'NovaSoft', rating: 5 },
+      { id: '1', quote: 'LaunchPad has completely transformed how our team builds products. We shipped our last feature in half the time it usually takes.', author: 'Sarah Chen', role: 'CTO at TechFlow', rating: '5' },
+      { id: '2', quote: "The component library is incredible. Everything just works together seamlessly. It's like having an extra engineer on the team.", author: 'Marcus Johnson', role: 'Lead Developer at Quantum Labs', rating: '5' },
+      { id: '3', quote: 'We evaluated 10 different platforms before choosing LaunchPad. The developer experience and support are unmatched.', author: 'Emily Rodriguez', role: 'Engineering Manager at NovaSoft', rating: '5' },
     ],
   },
   faq: {
@@ -139,7 +139,6 @@ const demoData = {
     subtitle: 'Join thousands of developers building the future. Get product updates, tips, and exclusive content delivered to your inbox.',
     placeholder: 'Enter your email',
     buttonText: 'Subscribe',
-    backgroundColor: 'dark' as const,
   },
 }
 

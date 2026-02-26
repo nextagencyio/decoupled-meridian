@@ -104,11 +104,11 @@ export default function ParagraphLogoCollection({
         {/* Logos */}
         <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 lg:gap-14">
           {logos.map((logo) => {
-            const nameKey = logo.name.toLowerCase()
+            const nameKey = logo.title.toLowerCase()
             const LogoIcon = TechLogos[nameKey]
             const brandColor = brandColors[nameKey]
 
-            // Check if there's a valid image URL (starts with http)
+            // Check if there's a valid image
             const hasValidImage = logo.image?.url && logo.image.url.startsWith('http')
 
             // Prioritize inline SVG icons for known tech brands
@@ -116,19 +116,19 @@ export default function ParagraphLogoCollection({
               <div className="flex items-center gap-2 group">
                 <LogoIcon className="h-8 w-8 md:h-10 md:w-10 text-gray-400 group-hover:text-current transition-colors" />
                 <span className="font-semibold text-gray-400 group-hover:text-current transition-colors text-sm md:text-base hidden sm:inline">
-                  {logo.name}
+                  {logo.title}
                 </span>
               </div>
             ) : hasValidImage ? (
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={secureUrl(logo.image!.url)}
-                alt={logo.name}
+                alt={logo.image!.alt || logo.title}
                 className="h-8 md:h-10 w-auto grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100"
               />
             ) : (
               <span className="font-semibold text-gray-400 hover:text-gray-700 transition-colors text-sm md:text-base">
-                {logo.name}
+                {logo.title}
               </span>
             )
 
@@ -138,9 +138,9 @@ export default function ParagraphLogoCollection({
                 className="flex items-center justify-center transition-colors"
                 style={{ '--brand-color': brandColor } as React.CSSProperties}
               >
-                {logo.url ? (
+                {logo.linkUrl ? (
                   <a
-                    href={logo.url}
+                    href={logo.linkUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:opacity-100 transition-opacity"

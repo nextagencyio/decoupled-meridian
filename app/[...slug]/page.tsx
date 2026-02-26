@@ -11,7 +11,17 @@ interface PageProps {
 
 const isDrupalConfigured = () => !!process.env.NEXT_PUBLIC_DRUPAL_BASE_URL
 
-// Helper to extract .value from Text type fields
+// Strip outer <p> tags from simple HTML strings (e.g. "<p>text</p>" → "text")
+function stripOuterParagraph(html: string): string {
+  const trimmed = html.trim()
+  const match = trimmed.match(/^<p>([\s\S]*)<\/p>$/i)
+  if (match && !match[1].includes('<p>')) {
+    return match[1]
+  }
+  return trimmed
+}
+
+// Helper to extract .value from Text type fields and strip outer <p> tags
 function extractTextValue(obj: unknown): unknown {
   if (obj === null || obj === undefined) return obj
   if (typeof obj !== 'object') return obj
@@ -19,7 +29,7 @@ function extractTextValue(obj: unknown): unknown {
 
   const record = obj as Record<string, unknown>
   if ('value' in record && typeof record.value === 'string' && Object.keys(record).length <= 3) {
-    return record.value
+    return stripOuterParagraph(record.value)
   }
 
   const result: Record<string, unknown> = {}

@@ -37,6 +37,7 @@ export interface ParagraphHero {
 export interface Card {
   id: string
   icon?: string
+  image?: Image
   title: string
   description?: string
   linkText?: string
@@ -65,10 +66,10 @@ export interface ParagraphSidebyside {
   id: string
   eyebrow?: string
   title: string
-  content?: string
+  description?: string
   image?: Image
   imagePosition?: 'left' | 'right'
-  features?: FeatureItem[]
+  featureItems?: FeatureItem[]
   ctaText?: string
   ctaUrl?: string
 }
@@ -91,11 +92,10 @@ export interface ParagraphAccordion {
 export interface Testimonial {
   id: string
   quote: string
-  authorName: string
-  authorTitle?: string
-  authorCompany?: string
-  authorImage?: Image
-  rating?: number
+  author: string
+  role?: string
+  rating?: string
+  avatar?: Image
 }
 
 export interface ParagraphQuote {
@@ -103,18 +103,16 @@ export interface ParagraphQuote {
   id: string
   eyebrow?: string
   title?: string
-  layout?: 'single' | 'grid'
   testimonials: Testimonial[]
 }
 
 export interface PricingTier {
   id: string
-  name: string
+  title: string
   price: string
-  billingPeriod?: string
   description?: string
-  features?: string[] | null
-  isFeatured?: boolean
+  features?: string[]
+  highlighted?: boolean
   ctaText?: string
   ctaUrl?: string
 }
@@ -130,9 +128,9 @@ export interface ParagraphPricing {
 
 export interface Logo {
   id: string
-  name: string
+  title: string
   image?: Image
-  url?: string
+  linkUrl?: string
 }
 
 export interface ParagraphLogoCollection {
@@ -167,7 +165,6 @@ export interface ParagraphNewsletter {
   subtitle?: string
   placeholder?: string
   buttonText?: string
-  backgroundColor?: 'light' | 'dark' | 'gradient'
 }
 
 export interface ParagraphText {
@@ -175,7 +172,7 @@ export interface ParagraphText {
   id: string
   eyebrow?: string
   title?: string
-  content: string
+  body?: string
   alignment?: 'left' | 'center'
   ctaText?: string
   ctaUrl?: string

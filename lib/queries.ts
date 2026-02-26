@@ -24,6 +24,12 @@ const PARAGRAPH_FRAGMENTS = gql`
   fragment CardFields on ParagraphCard {
     id
     icon
+    image {
+      url
+      alt
+      width
+      height
+    }
     title
     description { value }
     linkText
@@ -54,7 +60,7 @@ const PARAGRAPH_FRAGMENTS = gql`
     id
     eyebrow
     title
-    content { value }
+    description { value }
     image {
       url
       alt
@@ -62,7 +68,7 @@ const PARAGRAPH_FRAGMENTS = gql`
       height
     }
     imagePosition
-    features {
+    featureItems {
       ... on ParagraphFeatureItem {
         ...FeatureItemFields
       }
@@ -92,21 +98,21 @@ const PARAGRAPH_FRAGMENTS = gql`
   fragment TestimonialFields on ParagraphTestimonial {
     id
     quote { value }
-    authorName
-    authorTitle
-    authorCompany
-    authorImage {
+    author
+    role
+    rating
+    avatar {
       url
       alt
+      width
+      height
     }
-    rating
   }
 
   fragment QuoteFields on ParagraphQuote {
     id
     eyebrow
     title
-    layout
     testimonials {
       ... on ParagraphTestimonial {
         ...TestimonialFields
@@ -116,11 +122,11 @@ const PARAGRAPH_FRAGMENTS = gql`
 
   fragment PricingTierFields on ParagraphPricingTier {
     id
-    name
+    title
     price
-    billingPeriod
     description { value }
-    isFeatured
+    features
+    highlighted
     ctaText
     ctaUrl
   }
@@ -139,12 +145,14 @@ const PARAGRAPH_FRAGMENTS = gql`
 
   fragment LogoFields on ParagraphLogo {
     id
-    name
+    title
     image {
       url
       alt
+      width
+      height
     }
-    url
+    linkUrl
   }
 
   fragment LogoCollectionFields on ParagraphLogoCollection {
@@ -184,14 +192,13 @@ const PARAGRAPH_FRAGMENTS = gql`
     subtitle { value }
     placeholder
     buttonText
-    backgroundColor
   }
 
   fragment TextFields on ParagraphTextBlock {
     id
     eyebrow
     title
-    content { value }
+    body { value }
     alignment
     ctaText
     ctaUrl

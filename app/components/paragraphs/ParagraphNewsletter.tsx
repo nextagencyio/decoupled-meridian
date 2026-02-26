@@ -13,8 +13,9 @@ export default function ParagraphNewsletter({
   subtitle,
   placeholder = 'Enter your email',
   buttonText = 'Subscribe',
-  backgroundColor = 'dark',
-}: ParagraphNewsletterType) {
+  ...rest
+}: ParagraphNewsletterType & { backgroundColor?: string }) {
+  const backgroundColor = (rest as any).backgroundColor || 'dark'
   const [email, setEmail] = useState('')
   const [isSubmitted, setIsSubmitted] = useState(false)
 

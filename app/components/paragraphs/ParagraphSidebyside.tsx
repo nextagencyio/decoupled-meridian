@@ -22,10 +22,10 @@ function DynamicIcon({ name, className }: { name: string; className?: string }) 
 export default function ParagraphSidebyside({
   eyebrow,
   title,
-  content,
+  description,
   image,
   imagePosition = 'right',
-  features,
+  featureItems,
   ctaText,
   ctaUrl,
 }: ParagraphSidebysideType) {
@@ -52,17 +52,17 @@ export default function ParagraphSidebyside({
                 {title}
               </h2>
             )}
-            {content && (
+            {description && (
               <div
                 className="prose prose-lg text-gray-600 mb-8"
-                dangerouslySetInnerHTML={{ __html: content }}
+                dangerouslySetInnerHTML={{ __html: description }}
               />
             )}
 
             {/* Features List */}
-            {features && features.length > 0 && (
+            {featureItems && featureItems.length > 0 && (
               <ul className="space-y-4 mb-8">
-                {features.map((feature) => (
+                {featureItems.map((feature) => (
                   <li key={feature.id} className="flex gap-4">
                     <div className="flex-shrink-0 w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
                       <DynamicIcon
@@ -104,7 +104,7 @@ export default function ParagraphSidebyside({
               /* eslint-disable-next-line @next/next/no-img-element */
               <img
                 src={secureUrl(image.url)}
-                alt={image.alt || title}
+                alt={image.alt || `Image for ${title}`}
                 className="absolute inset-0 w-full h-full object-cover"
               />
             ) : (

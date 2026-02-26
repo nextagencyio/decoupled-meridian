@@ -7,16 +7,20 @@ import Badge from '../ui/Badge'
 import Button from '../ui/Button'
 import Card from '../ui/Card'
 
+function getFeatureText(feature: string): string {
+  return feature
+}
+
 function PricingCard({ tier }: { tier: PricingTier }) {
   return (
     <Card
-      variant={tier.isFeatured ? 'highlighted' : 'bordered'}
+      variant={tier.highlighted ? 'highlighted' : 'bordered'}
       className={clsx(
         'h-full flex flex-col relative',
-        tier.isFeatured && 'scale-105 z-10'
+        tier.highlighted && 'scale-105 z-10'
       )}
     >
-      {tier.isFeatured && (
+      {tier.highlighted && (
         <Badge
           variant="primary"
           className="absolute -top-3 left-1/2 -translate-x-1/2"
@@ -28,15 +32,12 @@ function PricingCard({ tier }: { tier: PricingTier }) {
       {/* Tier Name & Price */}
       <div className="text-center mb-6">
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          {tier.name}
+          {tier.title}
         </h3>
         <div className="flex items-baseline justify-center gap-1">
           <span className="text-4xl md:text-5xl font-bold text-gray-900">
             {tier.price}
           </span>
-          {tier.billingPeriod && (
-            <span className="text-gray-500">{tier.billingPeriod}</span>
-          )}
         </div>
         {tier.description && (
           <p className="mt-2 text-sm text-gray-500">{tier.description}</p>
@@ -49,7 +50,7 @@ function PricingCard({ tier }: { tier: PricingTier }) {
           {tier.features.map((feature, index) => (
             <li key={index} className="flex items-start gap-3">
               <Check className="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" />
-              <span className="text-gray-600">{feature}</span>
+              <span className="text-gray-600">{getFeatureText(feature)}</span>
             </li>
           ))}
         </ul>
@@ -58,7 +59,7 @@ function PricingCard({ tier }: { tier: PricingTier }) {
       {/* CTA */}
       {tier.ctaText && tier.ctaUrl && (
         <Button
-          variant={tier.isFeatured ? 'primary' : 'outline'}
+          variant={tier.highlighted ? 'primary' : 'outline'}
           href={tier.ctaUrl}
           className="w-full justify-center"
         >
