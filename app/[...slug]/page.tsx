@@ -5,9 +5,8 @@ import type { LandingPage, ParagraphType } from '@/lib/types'
 import { ParagraphList } from '../components/paragraphs/ParagraphRenderer'
 import { isDemoMode, getMockPageByPath, getMockPages } from '@/lib/demo-mode'
 
-// Use ISR - pages are cached and refreshed via on-demand revalidation
+// Pages use ISR: cached on first visit, refreshed via on-demand revalidation
 // from Drupal's dc_revalidate module (POST to /api/revalidate)
-export const revalidate = false
 
 interface PageProps {
   params: Promise<{ slug: string[] }>

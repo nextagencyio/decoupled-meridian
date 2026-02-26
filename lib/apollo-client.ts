@@ -8,7 +8,7 @@ function createApolloClient() {
     link: new HttpLink({
       uri: drupalUrl ? `${drupalUrl}/graphql` : '/api/graphql',
       credentials: 'same-origin',
-      fetch: (uri, options) => fetch(uri, { ...options, cache: 'no-store' }),
+      // Let Next.js cache GraphQL responses; cleared by revalidatePath on node save
     }),
     cache: new InMemoryCache({
       typePolicies: {
