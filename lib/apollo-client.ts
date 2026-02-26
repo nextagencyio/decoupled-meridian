@@ -8,7 +8,7 @@ function createApolloClient() {
     link: new HttpLink({
       uri: drupalUrl ? `${drupalUrl}/graphql` : '/api/graphql',
       credentials: 'same-origin',
-      fetchOptions: { cache: 'no-store' },
+      fetch: (uri, options) => fetch(uri, { ...options, cache: 'no-store' }),
     }),
     cache: new InMemoryCache({
       typePolicies: {
@@ -32,10 +32,10 @@ function createApolloClient() {
 let apolloClient: ApolloClient<any> | undefined
 
 export function getApolloClient() {
-  const _apolloClient = apolloClient ?? createApolloClient()
+  // On the server, always create a fresh client to avoid stale in-memory cache
+  if (typeof window === 'undefined') return createApolloClient()
 
-  if (typeof window === 'undefined') return _apolloClient
-  if (!apolloClient) apolloClient = _apolloClient
-
-  return _apolloClient
+  // On the client, reuse the singleton
+  if (!apolloClient) apolloClient = createApolloClient()
+  return apolloClient
 }
